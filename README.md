@@ -16,10 +16,10 @@
 ```javascript
 const parikshit = {
   pronouns: "he" | "him",
-  learning: ["Python", "Git", "Linux"],
-  futureStack: ["NumPy", "Pandas", "Scikit-learn", "PyTorch"],
+  learning: [Python, Git, Linux],
+  futureStack: [NumPy, Pandas, Scikit-learn, PyTorch],
   interests: ["Machine Learning", "Artificial Intelligence", "Open Source"],
-  currentGoal: "Building a strong foundation in Python for Machine Learning"
+  currentGoal: "Build a strong foundation in Python for Machine Learning"
 }
 ```
 
