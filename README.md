@@ -30,16 +30,14 @@
 
 <table>
 <tr>
-<td align="center">
+<td>
 
-<img src="https://github-stats-extended.vercel.app/api?username=parixiit&show_icons=true&theme=dark&hide_border=true" height="220"/>
+<img src="https://github-stats-extended.vercel.app/api?username=parixiit&show_icons=true&theme=dark&hide_border=true" width="420"/>
 
 </td>
+<td>
 
-<td align="center">
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=parixiit&bg_color=151515&color=8B949E&line=3FB950&point=FFFFFF&area=true&area_color=0D1117&title_color=FFFFFF&hide_border=true" height="220"/>
-
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=parixiit&bg_color=151515&color=8B949E&line=3FB950&point=FFFFFF&area=true&area_color=0D1117&title_color=FFFFFF&hide_border=true" width="500"/>
 </td>
 </tr>
 </table>
