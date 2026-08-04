@@ -32,7 +32,7 @@
 <tr>
 <td>
 
-<img src="https://github-stats-extended.vercel.app/api?username=parixiit&show_icons=true&theme=dark&hide_border=true" width="680"/>
+<img src="https://github-stats-extended.vercel.app/api?username=parixiit&show_icons=true&theme=dark&hide_border=true" width="620"/>
 
 </td>
 <td>
