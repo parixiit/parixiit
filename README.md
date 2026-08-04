@@ -18,7 +18,11 @@ const parikshit = {
   pronouns: "he" | "him",
   learning: [Python, Git, Linux],
   futureStack: [NumPy, Pandas, Scikit-learn, PyTorch],
-  interests: ["Machine Learning", "Artificial Intelligence", "Open Source"],
+  interests: {
+    "Machine Learning",
+    "Artificial Intelligence",
+    "Open Source"
+    },
   currentGoal: "Build a strong foundation in Python for Machine Learning"
 }
 ```
