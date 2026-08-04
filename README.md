@@ -11,9 +11,9 @@
 <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30">
 </em></p>
 
----
 
-<h3>
+
+<h2>
 <img src="https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif" width="18"> Tech Stack
 </h3>
 <p><em>- Tools and technologies I'm interested in.</em></p>
