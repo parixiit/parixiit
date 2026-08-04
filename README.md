@@ -30,14 +30,15 @@
 
 <table>
 <tr>
-<td>
+<td align="center">
 
 <img src="https://github-stats-extended.vercel.app/api?username=parixiit&show_icons=true&theme=dark&hide_border=true" width="420"/>
 
 </td>
-<td>
+<td align="center">
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=parixiit&bg_color=151515&color=8B949E&line=3FB950&point=FFFFFF&area=true&area_color=0D1117&title_color=FFFFFF&hide_border=true" width="600"/>
+<img src="https://raw.githubusercontent.com/parixiit/parixiit/main/profile-3d-contrib/profile-green-animate.svg" width="520"/>
+
 </td>
 </tr>
 </table>
