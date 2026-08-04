@@ -1,9 +1,5 @@
-<h2>
-  Hi, I'm Parikshit! <img src="https://media.giphy.com/media/mGcNjsfWAjY5AEZNw6/giphy.gif" width="50">
-</h2>
-
-<img align="right" src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif" width="200">
-
+<h2> Hi, I'm Parikshit! <img src="https://media.giphy.com/media/mGcNjsfWAjY5AEZNw6/giphy.gif" width="50"></h2>
+<img align='right' src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif" width="200">
 <p><em>
 ~ Currently learning <a href="https://www.python.org/">Python</a>
 <img src="https://media.giphy.com/media/fYSnHlufseco8Fh93Z/giphy.gif" width="30"><br>
@@ -11,33 +7,31 @@
 <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30">
 </em></p>
 
----
-
-<h3>
-<img src="https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif" width="18"> Tech Stack
-</h3>
-<p><em>- Tools and technologies I'm interested in.</em></p>
-
-<p align="left">
-  <img
-    src="https://go-skill-icons.vercel.app/api/icons?i=python,tensorflow,pytorch,scikitlearn,docker,fastapi,postgresql,aws&theme=dark"
-    width="360"
-  />
-</p>
+[![Linkedin: Parikshit](https://img.shields.io/badge/-thaianebraga-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/thaianebraga/)](https://www.linkedin.com/in/thaianebraga/)
+[![GitHub Parikshit](https://img.shields.io/github/followers/parixiit?label=follow&style=social)](https://github.com/parixiit)
 
 
+### <img src="https://media.giphy.com/media/VgCDAzcKvsR6OM0uWg/giphy.gif" width="50"> A little more about me...  
 
+```ansi
+[1;33m[PROFILE][0m
+[1;37mPronouns[0m           : [1;32mhe / him[0m
+[1;37mRole[0m                : [1;35mMachine Learning Engineer[0m
 
-<table>
-<tr>
-<td>
+[1;33m[LANGUAGES][0m
+[1;32mPython[0m • [1;34mC++[0m • [1;36mSQL[0m • [1;33mJavaScript[0m
 
-<img src="https://github-stats-extended.vercel.app/api?username=parixiit&show_icons=true&theme=dark&hide_border=true" width="420"/>
+[1;33m[LIBRARIES][0m
+[1;35mNumPy[0m • [1;36mPandas[0m • [1;32mScikit-learn[0m • [1;31mPyTorch[0m • [1;33mTensorFlow[0m
 
-</td>
-<td>
+[1;33m[TOOLS][0m
+[1;34mGit[0m • [1;36mDocker[0m • [1;35mJupyter[0m • [1;32mVS Code[0m • [1;33mAWS[0m
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=parixiit&bg_color=151515&color=8B949E&line=3FB950&point=FFFFFF&area=true&area_color=0D1117&title_color=FFFFFF&hide_border=true" width="500"/>
-</td>
-</tr>
-</table>
+[1;33m[INTERESTS][0m
+[1;31mMachine Learning[0m • [1;35mDeep Learning[0m • [1;36mLLMs[0m • [1;32mComputer Vision[0m
+
+[1;33m[CURRENTLY LEARNING][0m
+[1;31mPyTorch[0m • [1;34mMLOps[0m • [1;35mGenerative AI[0m
+```
+
+<img src="https://media.giphy.com/media/LnQjpWaON8nhr21vNW/giphy.gif" width="60"> <em><b>I love connecting with different people</b> so if you want to say <b>hi, I'll be happy to meet you more!</b> :)</em>
