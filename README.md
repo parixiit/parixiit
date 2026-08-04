@@ -13,25 +13,15 @@
 
 ### <img src="https://media.giphy.com/media/VgCDAzcKvsR6OM0uWg/giphy.gif" width="50"> A little more about me...  
 
-```ansi
-[1;33m[PROFILE][0m
-[1;37mPronouns[0m           : [1;32mhe / him[0m
-[1;37mRole[0m                : [1;35mMachine Learning Engineer[0m
-
-[1;33m[LANGUAGES][0m
-[1;32mPython[0m • [1;34mC++[0m • [1;36mSQL[0m • [1;33mJavaScript[0m
-
-[1;33m[LIBRARIES][0m
-[1;35mNumPy[0m • [1;36mPandas[0m • [1;32mScikit-learn[0m • [1;31mPyTorch[0m • [1;33mTensorFlow[0m
-
-[1;33m[TOOLS][0m
-[1;34mGit[0m • [1;36mDocker[0m • [1;35mJupyter[0m • [1;32mVS Code[0m • [1;33mAWS[0m
-
-[1;33m[INTERESTS][0m
-[1;31mMachine Learning[0m • [1;35mDeep Learning[0m • [1;36mLLMs[0m • [1;32mComputer Vision[0m
-
-[1;33m[CURRENTLY LEARNING][0m
-[1;31mPyTorch[0m • [1;34mMLOps[0m • [1;35mGenerative AI[0m
+```javascript
+const parikshit = {
+  pronouns: "he" | "him",
+  languages: ["Python", "C++", "SQL", "JavaScript"],
+  libraries: ["NumPy", "Pandas", "Scikit-learn", "PyTorch", "TensorFlow"],
+  tools: ["Git", "Docker", "Jupyter", "VS Code", "AWS"],
+  interests: ["ML", "DL", "LLMs", "Computer Vision"],
+  currentlyLearning: ["PyTorch", "MLOps", "Generative AI"]
+}
 ```
 
 <img src="https://media.giphy.com/media/LnQjpWaON8nhr21vNW/giphy.gif" width="60"> <em><b>I love connecting with different people</b> so if you want to say <b>hi, I'll be happy to meet you more!</b> :)</em>
