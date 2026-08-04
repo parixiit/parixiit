@@ -20,8 +20,8 @@
 
 <p align="left">
   <img
-    src="https://go-skill-icons.vercel.app/api/icons?i=python,cpp,git,github,vscode,linux,tensorflow,pytorch,numpy,pandas,scikitlearn,docker,fastapi,postgresql,aws&theme=dark"
-    width="600"
+    src="https://go-skill-icons.vercel.app/api/icons?i=python,tensorflow,pytorch,scikitlearn,docker,fastapi,postgresql,aws&theme=dark"
+    width="360"
   />
 </p>
 
