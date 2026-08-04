@@ -7,7 +7,7 @@
 <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30">
 </em></p>
 
-[![Linkedin: Parikshit](https://img.shields.io/badge/-thaianebraga-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/thaianebraga/)](https://www.linkedin.com/in/thaianebraga/)
+[![X: Parikshit](https://img.shields.io/badge/Parikshit-7C3AED?style=flat-square)](https://x.com/MeParixiit)
 [![GitHub Parikshit](https://img.shields.io/github/followers/parixiit?label=follow&style=social)](https://github.com/parixiit)
 
 
@@ -16,12 +16,11 @@
 ```javascript
 const parikshit = {
   pronouns: "he" | "him",
-  languages: ["Python", "C++", "SQL", "JavaScript"],
-  libraries: ["NumPy", "Pandas", "Scikit-learn", "PyTorch", "TensorFlow"],
-  tools: ["Git", "Docker", "Jupyter", "VS Code", "AWS"],
-  interests: ["ML", "DL", "LLMs", "Computer Vision"],
-  currentlyLearning: ["PyTorch", "MLOps", "Generative AI"]
+  learning: ["Python", "Git", "Linux"],
+  futureStack: ["NumPy", "Pandas", "Scikit-learn", "PyTorch"],
+  interests: ["Machine Learning", "Artificial Intelligence", "Open Source"],
+  currentGoal: "Building a strong foundation in Python for Machine Learning"
 }
 ```
 
-<img src="https://media.giphy.com/media/LnQjpWaON8nhr21vNW/giphy.gif" width="60"> <em><b>I love connecting with different people</b> so if you want to say <b>hi, I'll be happy to meet you more!</b> :)</em>
+<img src="https://media.giphy.com/media/LnQjpWaON8nhr21vNW/giphy.gif" width="60"> <em><b><b>Thanks for stopping by.</b> Feel free to reach out or connect with me.</em>
