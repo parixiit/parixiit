@@ -300,7 +300,7 @@ def project_line_md(project):
     language = project.get("language") or ""
     desc = escape_text(project.get("description", ""))
     badge = f" · `{language}`" if language else ""
-    text = f" [- **{name}**]({url}){badge}\n"
+    text = f"- [**{name}**]({url}){badge}\n"
     if desc:
         text += f"{desc}"
     return text
