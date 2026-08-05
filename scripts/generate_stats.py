@@ -301,8 +301,11 @@ def project_line_md(project):
     name = escape_text(project["name"])
     url = project.get("url") or f"https://github.com/{os.environ.get('GH_LOGIN', 'itsfizys')}/{project['name']}"
     language = project.get("language") or ""
+    stars = project.get("stars", 0)
     desc = escape_text(project.get("description", ""))
-    badge = f" · `{language}`" if language else ""
+    star_badge = f" · ★ {stars}" if stars else ""
+    lang_badge = f" · `{language}`" if language else ""
+    badge = star_badge + lang_badge
     text = f"- [**{name}**]({url}){badge}  \n"
     if desc:
         text += f"  {desc}"
