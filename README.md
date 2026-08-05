@@ -29,11 +29,9 @@
 </h3>
 
 <div align="center">
-<img src="./stats.svg" width="620" alt="Contributions in the last year"/>
+<img src="./stats.svg" width="600" alt="Contributions in the last year"/>
 </div>
 
 <div align="center">
-<img src="./streak.svg" width="620" alt="Current and longest streak"/>
-<img src="./langs.svg" width="620" alt="Top languages by bytes and by repo"/>
-<img src="./year.svg" width="700" alt="The last year, one character per day"/>
+<img src="./langs.svg" width="600" alt="Top languages by bytes and by repo"/>
 </div>
