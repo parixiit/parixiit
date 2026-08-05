@@ -222,12 +222,15 @@ def draw_stats(s):
             (s["active"], "active days"),
             (s["best_week"], "best week"),
             (s["stars"], "stargazed")]):
-        # Render number above its label with tight vertical spacing
-        y = 32 + i * 48
+        # Render number above its label. Rows tightened (24 + i*34) so the
+        # last row ("stargazed", i=2 -> y=92, label at y+16=108) finishes
+        # above the graph's top edge (H-58=130, wipe clip starts 6px above
+        # that at 124) instead of overlapping it.
+        y = 24 + i * 34
         p.append(f'<g opacity="0">{fade(0.30 + i * 0.12)}'
                  + label(WIDTH, y, f"{val}", 20, "e-f", "end",
                          ' font-weight="600"')
-                 + label(WIDTH, y + 18, f"{lab}", 12, "m-f", "end")
+                 + label(WIDTH, y + 16, f"{lab}", 12, "m-f", "end")
                  + '</g>')
 
     base, top = H - 10, H - 58
@@ -300,9 +303,9 @@ def project_line_md(project):
     language = project.get("language") or ""
     desc = escape_text(project.get("description", ""))
     badge = f" · `{language}`" if language else ""
-    text = f"- [**{name}**]({url}){badge}\n"
+    text = f"- [**{name}**]({url}){badge}  \n"
     if desc:
-        text += f"{desc}"
+        text += f"  {desc}"
     return text
 
 
