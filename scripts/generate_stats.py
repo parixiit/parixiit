@@ -312,6 +312,7 @@ def project_line_md(project):
     return text
 
 
+
 def update_readme_projects(projects, path):
     marker_start = "<!-- PROJECTS LIST START -->"
     marker_end = "<!-- PROJECTS LIST END -->"
