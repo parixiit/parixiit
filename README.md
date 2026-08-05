@@ -34,10 +34,12 @@
 
 
 
+
 <!-- PROJECTS LIST START -->
-- [**parixiit**](https://github.com/parixiit/parixiit) · ★ 1 · `Python`  
+- [**parixiit**](https://github.com/parixiit/parixiit) - **★ 1** - `Python`  
   my readme
 <!-- PROJECTS LIST END -->
+
 
 
 
