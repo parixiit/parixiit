@@ -17,7 +17,7 @@
   <img src="./images/hd-stack.svg" width="620">
 </h3>
 
-<p align="center">
+<p align="left">
   <img
     src="https://go-skill-icons.vercel.app/api/icons?i=python,tensorflow,pytorch,scikitlearn,docker,fastapi,postgresql,aws&theme=dark"
     width="360"
