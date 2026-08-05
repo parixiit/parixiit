@@ -35,5 +35,5 @@
 <div align="center">
 <img src="./streak.svg" width="620" alt="Current and longest streak"/>
 <img src="./langs.svg" width="620" alt="Top languages by bytes and by repo"/>
-<img src="./year.svg" width="620" alt="The last year, one character per day"/>
+<img src="./year.svg" width="700" alt="The last year, one character per day"/>
 </div>
