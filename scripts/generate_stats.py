@@ -225,7 +225,7 @@ def draw_stats(s):
         p.append(f'<g opacity="0">{fade(0.30 + i * 0.12)}'
                  + label(WIDTH, 34 + i * 34, val, 18, "e-f", "end",
                          ' font-weight="600"')
-                 + label(WIDTH, 52 + i * 34, lab, 11, "m-f", "end") + '</g>')
+                 + label(WIDTH, 54 + i * 34, lab, 11, "m-f", "end") + '</g>')
 
     base, top = H - 10, H - 58
     span = base - top
