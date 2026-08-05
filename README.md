@@ -28,8 +28,11 @@
   <img src="./images/hd-projects.svg" width="620">
 </h3>
 
+
 <!-- PROJECTS LIST START -->
+- [**parixiit**](https://github.com/parixiit/parixiit) · `Python` - my readme
 <!-- PROJECTS LIST END -->
+
 
 <h3>
   <img src="./images/hd-stats.svg" width="620">
