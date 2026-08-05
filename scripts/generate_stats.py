@@ -175,23 +175,23 @@ def hbar(x, y, w, h, cls="d-f", r=3.0):
 
 
 def draw_stats(s):
-    H      = 170
+    H      = 156
     weekly = s["weekly"] or [0]
     peak   = max(weekly) or 1
     p = [head(WIDTH, H)]
     p.append(f'<g opacity="0">{fade(0.10)}'
-             + label(0, 46, s["total"], 44, "e-f", extra=' font-weight="600"')
-             + label(0, 64, "contributions in the last year", 10) + '</g>')
+             + label(0, 42, s["total"], 40, "e-f", extra=' font-weight="600"')
+             + label(0, 58, "contributions in the last year", 10) + '</g>')
     for i, (val, lab) in enumerate([
             (s["active"], "active days"),
             (s["best_week"], "best week"),
             (s["stars"], "stargazed")]):
-        p.append(f'<g opacity="0">{fade(0.30 + i * 0.12)}'
-                 + label(WIDTH, 30 + i * 34, val, 18, "e-f", "end",
+        p.append(f'<g opacity="0">{fade(0.28 + i * 0.12)}'
+                 + label(WIDTH, 28 + i * 32, val, 18, "e-f", "end",
                          ' font-weight="600"')
-                 + label(WIDTH, 50 + i * 34, lab, 10, "m-f", "end") + '</g>')
+                 + label(WIDTH, 46 + i * 32, lab, 10, "m-f", "end") + '</g>')
 
-    base, top = H - 12, H - 54
+    base, top = H - 14, H - 50
     span = base - top
     step = WIDTH / max(len(weekly) - 1, 1)
     pts  = [(i * step, base - (v / peak) * span) for i, v in enumerate(weekly)]
