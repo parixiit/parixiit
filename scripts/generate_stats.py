@@ -222,10 +222,10 @@ def draw_stats(s):
             (s["active"], "active days"),
             (s["best_week"], "best week"),
             (s["stars"], "stargazed")]):
+        y = 36 + i * 40
         p.append(f'<g opacity="0">{fade(0.30 + i * 0.12)}'
-                 + label(WIDTH, 32 + i * 48, val, 18, "e-f", "end",
-                         ' font-weight="600"')
-                 + label(WIDTH, 54 + i * 48, lab, 11, "m-f", "end") + '</g>')
+                 + label(WIDTH, y, f"{val} {lab}", 14, "e-f", "end",
+                         ' font-weight="600"') + '</g>')
 
     base, top = H - 10, H - 58
     span = base - top
@@ -296,9 +296,9 @@ def project_line_md(project):
     language = project.get("language") or ""
     desc = escape_text(project.get("description", ""))
     badge = f" · `{language}`" if language else ""
-    text = f"- [**{name}**]({url}){badge}"
+    text = f"~ [**{name}**]({url}){badge}"
     if desc:
-        text += f" - {desc}"
+        text += f"\n{desc}"
     return text
 
 
