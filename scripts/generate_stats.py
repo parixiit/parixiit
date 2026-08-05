@@ -216,16 +216,16 @@ def draw_stats(s):
     peak   = max(weekly) or 1
     p = [head(WIDTH, H)]
     p.append(f'<g opacity="0">{fade(0.10)}'
-             + label(0, 46, s["total"], 40, "e-f", extra=' font-weight="600"')
+             + label(0, 44, s["total"], 38, "e-f", extra=' font-weight="600"')
              + label(0, 62, "contributions in the last year", 12) + '</g>')
     for i, (val, lab) in enumerate([
             (s["active"], "active days"),
             (s["best_week"], "best week"),
             (s["stars"], "stargazed")]):
         p.append(f'<g opacity="0">{fade(0.30 + i * 0.12)}'
-                 + label(WIDTH, 34 + i * 34, val, 18, "e-f", "end",
+                 + label(WIDTH, 32 + i * 48, val, 18, "e-f", "end",
                          ' font-weight="600"')
-                 + label(WIDTH, 54 + i * 34, lab, 11, "m-f", "end") + '</g>')
+                 + label(WIDTH, 54 + i * 48, lab, 11, "m-f", "end") + '</g>')
 
     base, top = H - 10, H - 58
     span = base - top
