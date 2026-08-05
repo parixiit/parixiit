@@ -28,6 +28,9 @@
   <img src="./images/hd-projects.svg" width="620">
 </h3>
 
+<!-- PROJECTS LIST START -->
+<!-- PROJECTS LIST END -->
+
 <h3>
   <img src="./images/hd-stats.svg" width="620">
 </h3>
