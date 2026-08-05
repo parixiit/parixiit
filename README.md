@@ -36,8 +36,7 @@
 
 
 <!-- PROJECTS LIST START -->
-- [**parixiit**](https://github.com/parixiit/parixiit) - **★ 1** - `Python`  
-  my readme
+- [**parixiit**](https://github.com/parixiit/parixiit) &nbsp;**·**&nbsp; ** ★ 1** &nbsp;**·**&nbsp; `Python`  
 <!-- PROJECTS LIST END -->
 
 
