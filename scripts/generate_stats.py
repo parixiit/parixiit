@@ -298,14 +298,13 @@ def project_line_md(project):
     badge = f" · `{language}`" if language else ""
     text = f"- [**{name}**]({url}){badge}"
     if desc:
-        text += f"{desc}"
+        text += f" - {desc}"
     return text
 
 
 def update_readme_projects(projects, path):
     marker_start = "<!-- PROJECTS LIST START -->"
     marker_end = "<!-- PROJECTS LIST END -->"
-    content = []
     if projects:
         content = [project_line_md(p) for p in projects]
     else:
@@ -320,13 +319,19 @@ def update_readme_projects(projects, path):
         _, suffix = rest.split(marker_end, 1)
         new_text = prefix + "\n" + "\n".join(new_block) + "\n" + suffix
     else:
-        # Insert after hd-projects image block if markers are missing.
         needle = '<img src="./images/hd-projects.svg" width="620">'
-        if needle in text:
-            new_text = text.replace(
-                needle,
-                needle + "\n\n" + "\n".join(new_block)
-            )
+        insert_after = text.find(needle)
+        if insert_after != -1:
+            insert_after = text.find("</h3>", insert_after)
+            if insert_after != -1:
+                insert_after += len("</h3>")
+                new_text = (text[:insert_after] + "\n\n" + "\n".join(new_block)
+                            + text[insert_after:])
+            else:
+                new_text = text.replace(
+                    needle,
+                    needle + "\n\n" + "\n".join(new_block)
+                )
         else:
             new_text = text
 
