@@ -293,6 +293,7 @@ def draw_projects(projects):
     return draw_heading("projects")
 
 
+
 def project_line_md(project):
     name = escape_text(project["name"])
     url = project.get("url") or f"https://github.com/{os.environ.get('GH_LOGIN', 'itsfizys')}/{project['name']}"
