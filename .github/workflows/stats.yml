@@ -4,7 +4,7 @@ name: refresh stats
 # trigger would make it re-run on its own commit.
 on:
   schedule:
-    - cron: "17 5 * * *"
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
 
       - name: Commit whatever changed
         run: |
-          FILES="stats.svg streak.svg langs.svg year.svg hd-*.svg"
+          FILES="images/*.svg"
           if [ -z "$(git status --porcelain -- $FILES)" ]; then
             echo "no change"
             exit 0

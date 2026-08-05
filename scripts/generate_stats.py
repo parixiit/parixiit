@@ -89,34 +89,6 @@ def fetch(login, token):
     return user
 
 
-def pretty(iso):
-    d = date.fromisoformat(iso)
-    return f"{MON[d.month - 1]} {d.day}"
-
-
-def streaks(days):
-    best = dict(length=0, start=None, end=None)
-    run, run_start = 0, None
-    for d in days:
-        if d["contributionCount"] > 0:
-            run += 1
-            run_start = run_start or d["date"]
-            if run > best["length"]:
-                best = dict(length=run, start=run_start, end=d["date"])
-        else:
-            run, run_start = 0, None
-
-    cur = dict(length=0, start=None, end=None)
-    tail = days[:-1] if days and days[-1]["contributionCount"] == 0 else days
-    for d in reversed(tail):
-        if d["contributionCount"] == 0:
-            break
-        cur["length"] += 1
-        cur["start"]   = d["date"]
-        cur["end"]     = cur["end"] or d["date"]
-    return cur, best
-
-
 def languages(repos):
     by_size, by_repo = {}, {}
     for node in repos:
@@ -139,14 +111,12 @@ def summarise(user):
     weeks = [w["contributionDays"] for w in cal["weeks"]]
     days  = [d for w in weeks for d in w]
     weekly = [sum(d["contributionCount"] for d in w) for w in weeks]
-    cur, best = streaks(days)
     by_size, by_repo = languages(user["repositories"]["nodes"])
     return dict(
         total=cal["totalContributions"],
         active=sum(1 for d in days if d["contributionCount"] > 0),
         best_week=max(weekly) if weekly else 0,
         weekly=weekly, weeks=weeks,
-        current=cur, longest=best,
         by_size=by_size, by_repo=by_repo)
 
 
@@ -241,29 +211,6 @@ def draw_stats(s):
     return "".join(p)
 
 
-def draw_streak(s):
-    H     = 96
-    cells = []
-    for k, lab in (("current", "current streak"), ("longest", "longest streak")):
-        r    = s[k]
-        span = (f"{pretty(r['start'])} &#8211; {pretty(r['end'])}"
-                if r["length"] else "&#8212;")
-        cells.append((r["length"], lab, span))
-
-    p   = [head(WIDTH, H)]
-    mid = WIDTH / 2
-    p.append(f'<line x1="{mid:.0f}" y1="16" x2="{mid:.0f}" y2="80" '
-             f'class="u-s" stroke-width="1" opacity="0">{fade(0.20)}</line>')
-    for i, (val, lab, span) in enumerate(cells):
-        x = LEFT if i == 0 else mid + LEFT
-        p.append(f'<g opacity="0">{fade(0.12 + i * 0.14)}'
-                 + label(x, 44, f"{val}", 34, "e-f", extra=' font-weight="600"')
-                 + label(x, 64, lab, 11)
-                 + label(x, 80, span, 10) + '</g>')
-    p.append("</svg>")
-    return "".join(p)
-
-
 def draw_langs(s):
     rows  = max(len(s["by_size"]), len(s["by_repo"]), 1)
     H     = 26 + rows * 22 + 6
@@ -312,74 +259,6 @@ def draw_heading(word):
     return "".join(p)
 
 
-def draw_year(s):
-    FS, LH, COLW = 9.2, 11.0, 2
-    CW           = FS * 0.6
-    pad_l, pad_t = LEFT, 44
-    weeks        = s["weeks"]
-    ncols        = len(weeks) * COLW
-    H            = int(pad_t + 7 * LH + 26)
-
-    def level(v):
-        for i, cut in enumerate((0, 2, 5, 9)):
-            if v <= cut:
-                return i
-        return 4
-
-    p = [head(WIDTH, H)]
-    p.append(f'<g opacity="0">{fade(0.10)}'
-             + label(pad_l, 16, "THE YEAR", 9, "m-f",
-                     extra=' letter-spacing="1.3"')
-             + label(pad_l, 32, f"{s['active']} of "
-                     f"{sum(len(w) for w in weeks)} days had a contribution", 11)
-             + '</g>')
-
-    lx = WIDTH - 6
-    p.append(f'<g opacity="0">{fade(1.30)}'
-             + label(lx - 78, 32, "less", 9, "m-f", "end")
-             + f'<text xml:space="preserve" x="{lx - 72}" y="32" class="d-f" '
-             f'font-size="{FS}">{" ".join(RAMP[1:])}</text>'
-             + label(lx, 32, "more", 9, "m-f", "end") + '</g>')
-
-    for r in range(7):
-        chars = []
-        for w in weeks:
-            day = next((d for d in w if d.get("weekday") == r), None)
-            v   = day["contributionCount"] if day else 0
-            chars.append(RAMP[level(v)] * COLW)
-        line = "".join(chars).rstrip()
-        if not line:
-            continue
-        y    = pad_t + r * LH
-        w_px = max(len(line), 1) * CW
-        cid  = f"ry{r}"
-        delay = 0.30 + r * 0.07
-        p.append(f'<clipPath id="{cid}"><rect x="{pad_l}" y="{y}" '
-                 f'height="{LH}" width="0"><animate attributeName="width" '
-                 f'from="0" to="{w_px:.1f}" begin="{delay:.2f}s" dur="0.40s" '
-                 f'fill="freeze"/></rect></clipPath>')
-        safe = line.replace("&", "&amp;").replace("<", "&lt;")
-        p.append(f'<g clip-path="url(#{cid})"><text xml:space="preserve" '
-                 f'x="{pad_l}" y="{y + FS - 0.6:.1f}" class="d-f" '
-                 f'font-size="{FS}">{safe}</text></g>')
-
-    for r, lab in ((1, "mon"), (3, "wed"), (5, "fri")):
-        p.append(label(pad_l - 7, pad_t + r * LH + FS - 0.6, lab, 9, "m-f",
-                       "end"))
-
-    last_m, last_x = None, -999.0
-    base_y = pad_t + 7 * LH + 13
-    for i, w in enumerate(weeks):
-        m = int(w[0]["date"][5:7])
-        x = pad_l + i * COLW * CW
-        if m != last_m and i < len(weeks) - 1 and x - last_x >= 34:
-            p.append(label(x, base_y, MON[m - 1], 9, "m-f"))
-            last_x = x
-        last_m = m
-
-    p.append("</svg>")
-    return "".join(p)
-
 
 
 def write(path, svg):
@@ -402,20 +281,19 @@ def main():
     out_dir = os.environ.get("OUT_DIR", ".")
 
     s = summarise(fetch(login, token))
+    images_dir = os.path.join(out_dir, "images")
+    os.makedirs(images_dir, exist_ok=True)
     files = {
-        "stats.svg":  draw_stats(s),
-        "streak.svg": draw_streak(s),
-        "langs.svg":  draw_langs(s),
-        "year.svg":   draw_year(s),
+        os.path.join(images_dir, "stats.svg"): draw_stats(s),
+        os.path.join(images_dir, "langs.svg"):  draw_langs(s),
     }
-    for word in ("about", "stack", "projects", "stats", "about this page"):
-        files[f"hd-{word.replace(' ', '-')}.svg"] = draw_heading(word)
+    for word in ("about", "stack", "projects", "stats"):
+        files[os.path.join(images_dir, f"hd-{word.replace(' ', '-')}.svg")] = draw_heading(word)
 
     changed = [n for n, svg in files.items()
                if write(os.path.join(out_dir, n), svg)]
     print(f"{s['total']} contributions, {s['active']} active days, "
-          f"best week {s['best_week']}, current streak "
-          f"{s['current']['length']}, longest {s['longest']['length']}")
+          f"best week {s['best_week']}")
     print("languages by bytes: "
           + ", ".join(f"{n} {v}" for n, v in s["by_size"]))
     print("updated: " + (", ".join(sorted(changed)) if changed else "nothing"))

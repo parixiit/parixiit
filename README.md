@@ -7,14 +7,14 @@
 </div>
 
 <h3>
-  <img src="./hd-about.svg" width="620">
+  <img src="./images/hd-about.svg" width="620">
 </h3>
 
 > I'm **Parikshit** - student , learner ,developer.<br>
 > bringing ideas to life with code and creativity.
 
 <h3>
-  <img src="./hd-stack.svg" width="620">
+  <img src="./images/hd-stack.svg" width="620">
 </h3>
 
 <p align="left">
@@ -25,13 +25,13 @@
 </p>
 
 <h3>
-  <img src="./hd-stats.svg" width="620">
+  <img src="./images/hd-stats.svg" width="620">
 </h3>
 
 <div align="center">
-<img src="./stats.svg" width="600" alt="Contributions in the last year"/>
+<img src="./images/stats.svg" width="600" alt="Contributions in the last year"/>
 </div>
 
 <div align="center">
-<img src="./langs.svg" width="600" alt="Top languages by bytes and by repo"/>
+<img src="./images/langs.svg" width="600" alt="Top languages by bytes and by repo"/>
 </div>
