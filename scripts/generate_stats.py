@@ -21,6 +21,8 @@ query($login: String!, $from: DateTime!, $to: DateTime!) {
     repositories(first: 100, ownerAffiliations: OWNER, isFork: false,
                  privacy: PUBLIC, orderBy: {field: STARGAZERS, direction: DESC}) {
       nodes {
+        name
+        description
         stargazerCount
         languages(first: 12, orderBy: {field: SIZE, direction: DESC}) {
           edges { size node { name } }
@@ -105,20 +107,49 @@ def languages(repos):
     return rank(by_size), rank(by_repo)
 
 
+def escape_text(text):
+    if not text:
+        return ""
+    return (text.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;"))
+
+
+def fit_text(text, max_chars=88):
+    if len(text) <= max_chars:
+        return text
+    return text[:max_chars - 1].rstrip() + "…"
+
+
+def top_projects(repos, limit=5):
+    starred = [node for node in repos if node.get("stargazerCount", 0) > 0]
+    projects = []
+    for node in starred[:limit]:
+        desc = (node.get("description") or "").replace("\n", " ").strip()
+        projects.append({
+            "name": node["name"],
+            "stars": node.get("stargazerCount", 0),
+            "description": desc,
+        })
+    return projects
+
+
 def summarise(user):
     cal   = user["contributionsCollection"]["contributionCalendar"]
     weeks = [w["contributionDays"] for w in cal["weeks"]]
     days  = [d for w in weeks for d in w]
     weekly = [sum(d["contributionCount"] for d in w) for w in weeks]
-    by_size, by_repo = languages(user["repositories"]["nodes"])
-    stars = sum(node.get("stargazerCount", 0) for node in user["repositories"]["nodes"])
+    repos = user["repositories"]["nodes"]
+    by_size, by_repo = languages(repos)
+    stars = sum(node.get("stargazerCount", 0) for node in repos)
     return dict(
         total=cal["totalContributions"],
         active=sum(1 for d in days if d["contributionCount"] > 0),
         best_week=max(weekly) if weekly else 0,
         weekly=weekly, weeks=weeks,
         stars=stars,
-        by_size=by_size, by_repo=by_repo)
+        by_size=by_size, by_repo=by_repo,
+        top_projects=top_projects(repos))
 
 
 # ---------------------------------------------------------------- drawing
@@ -184,12 +215,11 @@ def draw_stats(s):
              + label(0, 72, "contributions in the last year", 12) + '</g>')
     for i, (val, lab) in enumerate([
             (s["active"], "active days"),
-            (s["best_week"], "best week"),
-           (s["stars"], "stargazed")]):
+            (s["best_week"], "in best week"),
+            (s["stars"], "stargazed")]):
         p.append(f'<g opacity="0">{fade(0.30 + i * 0.12)}'
-                 + label(WIDTH, 30 + i * 32, val, 19, "e-f", "end",
-                         ' font-weight="600"')
-                 + label(WIDTH, 47 + i * 32, lab, 11, "m-f", "end") + '</g>')
+                 + label(WIDTH, 30 + i * 32, f"{val} {lab}", 15, "e-f", "end",
+                         ' font-weight="600"') + '</g>')
 
     base, top = H - 10, H - 58
     span = base - top
@@ -250,6 +280,28 @@ def draw_langs(s):
     return "".join(p)
 
 
+def draw_projects(projects):
+    if not projects:
+        return draw_heading("projects")
+
+    line_height = 18
+    title_height = 26
+    H = title_height + len(projects) * line_height + 20
+    p = [head(WIDTH, H, font=font_head())]
+    p.append(label(0, 18, "projects", 16, "e-f", extra=' font-weight="600"'))
+    p.append(f'<line x1="96" y1="12.5" x2="{WIDTH}" y2="12.5" '
+             f'class="u-s" stroke-width="1"/>')
+    for idx, project in enumerate(projects):
+        line = f"{project['name']} [{project['stars']} stars]"
+        if project['description']:
+            line += f" - {project['description']}"
+        line = fit_text(line)
+        p.append(label(0, title_height + 14 + idx * line_height,
+                       escape_text(line), 11, "m-f"))
+    p.append("</svg>")
+    return "".join(p)
+
+
 def draw_heading(word):
     FS       = 16
     H        = 26
@@ -289,17 +341,18 @@ def main():
     files = {
         os.path.join(images_dir, "stats.svg"): draw_stats(s),
         os.path.join(images_dir, "langs.svg"):  draw_langs(s),
+        os.path.join(images_dir, "hd-about.svg"): draw_heading("about"),
+        os.path.join(images_dir, "hd-stack.svg"): draw_heading("stack"),
+        os.path.join(images_dir, "hd-projects.svg"): draw_projects(s["top_projects"]),
+        os.path.join(images_dir, "hd-stats.svg"): draw_heading("stats"),
     }
-    for word in ("about", "stack", "projects", "stats"):
-        files[os.path.join(images_dir, f"hd-{word.replace(' ', '-')}.svg")] = draw_heading(word)
 
-        changed = [n for n, svg in files.items()
-               if write(os.path.join(out_dir, n), svg)]
-        print(f"{s['total']} contributions, {s['active']} active days, "
-            f"best week {s['best_week']}, {s['stars']} stargazed")
-        print("languages by bytes: "
-            + ", ".join(f"{n} {v}" for n, v in s["by_size"]))
-        print("updated: " + (", ".join(sorted(changed)) if changed else "nothing"))
+    changed = [n for n, svg in files.items() if write(n, svg)]
+    print(f"{s['total']} contributions, {s['active']} active days, "
+          f"best week {s['best_week']}, {s['stars']} stargazed")
+    print("languages by bytes: "
+          + ", ".join(f"{n} {v}" for n, v in s["by_size"]))
+    print("updated: " + (", ".join(sorted(changed)) if changed else "nothing"))
 
 
 if __name__ == "__main__":
