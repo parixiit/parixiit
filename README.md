@@ -38,10 +38,7 @@
 
 <!-- PROJECTS LIST START -->
 - [**parixiit**](https://github.com/parixiit/parixiit) &nbsp;**·**&nbsp; **★ 1** &nbsp;**·**&nbsp; `Python`  
-<<<<<<< HEAD
-=======
 
->>>>>>> 87da3e68abc46923d54165876e77bcfa68625f1e
 <!-- PROJECTS LIST END -->
 
 
