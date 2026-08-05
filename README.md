@@ -10,7 +10,7 @@
   <img src="./images/hd-about.svg" width="620">
 </h3>
 
-> I'm **Parikshit** - student , learner ,developer.<br>
+> I'm **Parikshit** - student , learner , developer.<br>
 > bringing ideas to life with code and creativity.
 
 <h3>
