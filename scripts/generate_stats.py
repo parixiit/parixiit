@@ -23,7 +23,9 @@ query($login: String!, $from: DateTime!, $to: DateTime!) {
       nodes {
         name
         description
+        url
         stargazerCount
+        primaryLanguage { name }
         languages(first: 12, orderBy: {field: SIZE, direction: DESC}) {
           edges { size node { name } }
         }
@@ -126,9 +128,12 @@ def top_projects(repos, limit=5):
     projects = []
     for node in starred[:limit]:
         desc = (node.get("description") or "").replace("\n", " ").strip()
+        language = (node.get("primaryLanguage") or {}).get("name") or ""
         projects.append({
             "name": node["name"],
+            "url": node.get("url") or "",
             "stars": node.get("stargazerCount", 0),
+            "language": language,
             "description": desc,
         })
     return projects
@@ -215,11 +220,12 @@ def draw_stats(s):
              + label(0, 72, "contributions in the last year", 12) + '</g>')
     for i, (val, lab) in enumerate([
             (s["active"], "active days"),
-            (s["best_week"], "in best week"),
+            (s["best_week"], "best week"),
             (s["stars"], "stargazed")]):
         p.append(f'<g opacity="0">{fade(0.30 + i * 0.12)}'
-                 + label(WIDTH, 30 + i * 32, f"{val} {lab}", 15, "e-f", "end",
-                         ' font-weight="600"') + '</g>')
+                 + label(WIDTH, 30 + i * 32, val, 19, "e-f", "end",
+                         ' font-weight="600"')
+                 + label(WIDTH, 47 + i * 32, lab, 11, "m-f", "end") + '</g>')
 
     base, top = H - 10, H - 58
     span = base - top
@@ -281,25 +287,54 @@ def draw_langs(s):
 
 
 def draw_projects(projects):
-    if not projects:
-        return draw_heading("projects")
+    return draw_heading("projects")
 
-    line_height = 18
-    title_height = 26
-    H = title_height + len(projects) * line_height + 20
-    p = [head(WIDTH, H, font=font_head())]
-    p.append(label(0, 18, "projects", 16, "e-f", extra=' font-weight="600"'))
-    p.append(f'<line x1="96" y1="12.5" x2="{WIDTH}" y2="12.5" '
-             f'class="u-s" stroke-width="1"/>')
-    for idx, project in enumerate(projects):
-        line = f"{project['name']} [{project['stars']} stars]"
-        if project['description']:
-            line += f" - {project['description']}"
-        line = fit_text(line)
-        p.append(label(0, title_height + 14 + idx * line_height,
-                       escape_text(line), 11, "m-f"))
-    p.append("</svg>")
-    return "".join(p)
+
+def project_line_md(project):
+    name = escape_text(project["name"])
+    url = project.get("url") or f"https://github.com/{os.environ.get('GH_LOGIN', 'itsfizys')}/{project['name']}"
+    language = project.get("language") or ""
+    desc = escape_text(project.get("description", ""))
+    badge = f" · `{language}`" if language else ""
+    text = f"- [**{name}**]({url}){badge}"
+    if desc:
+        text += f"{desc}"
+    return text
+
+
+def update_readme_projects(projects, path):
+    marker_start = "<!-- PROJECTS LIST START -->"
+    marker_end = "<!-- PROJECTS LIST END -->"
+    content = []
+    if projects:
+        content = [project_line_md(p) for p in projects]
+    else:
+        content = ["- No starred projects to show."]
+    new_block = [marker_start] + content + [marker_end]
+
+    with open(path, encoding="utf-8") as f:
+        text = f.read()
+
+    if marker_start in text and marker_end in text:
+        prefix, rest = text.split(marker_start, 1)
+        _, suffix = rest.split(marker_end, 1)
+        new_text = prefix + "\n" + "\n".join(new_block) + "\n" + suffix
+    else:
+        # Insert after hd-projects image block if markers are missing.
+        needle = '<img src="./images/hd-projects.svg" width="620">'
+        if needle in text:
+            new_text = text.replace(
+                needle,
+                needle + "\n\n" + "\n".join(new_block)
+            )
+        else:
+            new_text = text
+
+    if new_text != text:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(new_text)
+        return True
+    return False
 
 
 def draw_heading(word):
@@ -348,6 +383,10 @@ def main():
     }
 
     changed = [n for n, svg in files.items() if write(n, svg)]
+    readme_changed = update_readme_projects(s["top_projects"], os.path.join(out_dir, "README.md"))
+    if readme_changed:
+        changed.append(os.path.join(out_dir, "README.md"))
+
     print(f"{s['total']} contributions, {s['active']} active days, "
           f"best week {s['best_week']}, {s['stars']} stargazed")
     print("languages by bytes: "
