@@ -11,7 +11,7 @@
 </h3>
 
 > I'm **Parikshit** - student , learner ,developer.<br>
-> built around the process of turning ideas into real things.
+> bringing ideas to life with code and creativity.
 
 <h3>
   <img src="./hd-stack.svg" width="620">
