@@ -185,7 +185,7 @@ def draw_stats(s):
     for i, (val, lab) in enumerate([
             (s["active"], "active days"),
             (s["best_week"], "best week"),
-            (s["stars"], "stargazed")]):
+           (s["stars"], "stargazed")]):
         p.append(f'<g opacity="0">{fade(0.30 + i * 0.12)}'
                  + label(WIDTH, 30 + i * 32, val, 19, "e-f", "end",
                          ' font-weight="600"')
@@ -293,13 +293,13 @@ def main():
     for word in ("about", "stack", "projects", "stats"):
         files[os.path.join(images_dir, f"hd-{word.replace(' ', '-')}.svg")] = draw_heading(word)
 
-    changed = [n for n, svg in files.items()
+        changed = [n for n, svg in files.items()
                if write(os.path.join(out_dir, n), svg)]
-    print(f"{s['total']} contributions, {s['active']} active days, "
-          f"best week {s['best_week']}, {s['stars']} stars")
-    print("languages by bytes: "
-          + ", ".join(f"{n} {v}" for n, v in s["by_size"]))
-    print("updated: " + (", ".join(sorted(changed)) if changed else "nothing"))
+        print(f"{s['total']} contributions, {s['active']} active days, "
+            f"best week {s['best_week']}, {s['stars']} stargazed")
+        print("languages by bytes: "
+            + ", ".join(f"{n} {v}" for n, v in s["by_size"]))
+        print("updated: " + (", ".join(sorted(changed)) if changed else "nothing"))
 
 
 if __name__ == "__main__":
