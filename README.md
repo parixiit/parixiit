@@ -1,3 +1,11 @@
+<div align="center">
+
+[**discord**](https://discord.com/users/689047015665172569) &nbsp;**·**&nbsp;
+[**telegram**](https://telegram.com/@parixiit) &nbsp;**·**&nbsp;
+[**twitter**](https://www.x.com/MeParixiit)
+
+</div>
+
 <h3>
   <img src="./hd-about.svg" width="620">
 </h3>
