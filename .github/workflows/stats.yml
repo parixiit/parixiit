@@ -47,3 +47,4 @@ jobs:
           git add -- $FILES
           git commit -m "."
           git push
+          
