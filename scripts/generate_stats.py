@@ -216,8 +216,8 @@ def draw_stats(s):
     peak   = max(weekly) or 1
     p = [head(WIDTH, H)]
     p.append(f'<g opacity="0">{fade(0.10)}'
-             + label(0, 44, s["total"], 38, "e-f", extra=' font-weight="600"')
-             + label(0, 62, "contributions in the last year", 12) + '</g>')
+             + label(0, 40, s["total"], 32, "e-f", extra=' font-weight="600"')
+             + label(0, 58, "contributions in the last year", 12) + '</g>')
     for i, (val, lab) in enumerate([
             (s["active"], "active days"),
             (s["best_week"], "best week"),
