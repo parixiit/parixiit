@@ -12,14 +12,16 @@ QUERY = """
 query($login: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $login) {
     contributionsCollection(from: $from, to: $to) {
+      totalCommitContributions
       contributionCalendar {
         totalContributions
         weeks { contributionDays { contributionCount date weekday } }
       }
     }
     repositories(first: 100, ownerAffiliations: OWNER, isFork: false,
-                 privacy: PUBLIC) {
+                 privacy: PUBLIC, orderBy: {field: STARGAZERS, direction: DESC}) {
       nodes {
+        stargazerCount
         languages(first: 12, orderBy: {field: SIZE, direction: DESC}) {
           edges { size node { name } }
         }
@@ -58,9 +60,6 @@ def font_head():
 WIDTH  = 620
 LEFT   = 34
 REVEAL = 1.30
-RAMP   = [" ", ":", "+", "#", "@"]
-MON    = ["jan", "feb", "mar", "apr", "may", "jun",
-          "jul", "aug", "sep", "oct", "nov", "dec"]
 
 
 def window():
@@ -112,11 +111,14 @@ def summarise(user):
     days  = [d for w in weeks for d in w]
     weekly = [sum(d["contributionCount"] for d in w) for w in weeks]
     by_size, by_repo = languages(user["repositories"]["nodes"])
+    stars = sum(node.get("stargazerCount", 0) for node in user["repositories"]["nodes"])
+    commits = cal.get("totalCommitContributions", 0)
     return dict(
         total=cal["totalContributions"],
         active=sum(1 for d in days if d["contributionCount"] > 0),
         best_week=max(weekly) if weekly else 0,
         weekly=weekly, weeks=weeks,
+        stars=stars, commits=commits,
         by_size=by_size, by_repo=by_repo)
 
 
@@ -174,19 +176,22 @@ def hbar(x, y, w, h, cls="d-f", r=3.0):
 
 
 def draw_stats(s):
-    H      = 148
+    H      = 188
     weekly = s["weekly"] or [0]
     peak   = max(weekly) or 1
     p = [head(WIDTH, H)]
     p.append(f'<g opacity="0">{fade(0.10)}'
              + label(0, 50, s["total"], 52, "e-f", extra=' font-weight="600"')
              + label(0, 72, "contributions in the last year", 12) + '</g>')
-    for i, (val, lab) in enumerate([(s["active"], "active days"),
-                                    (s["best_week"], "best week")]):
+    for i, (val, lab) in enumerate([
+            (s["active"], "active days"),
+            (s["best_week"], "best week"),
+            (s["stars"], "stars"),
+            (s["commits"], "commits")]):
         p.append(f'<g opacity="0">{fade(0.30 + i * 0.12)}'
-                 + label(WIDTH, 30 + i * 40, val, 19, "e-f", "end",
+                 + label(WIDTH, 30 + i * 32, val, 19, "e-f", "end",
                          ' font-weight="600"')
-                 + label(WIDTH, 47 + i * 40, lab, 11, "m-f", "end") + '</g>')
+                 + label(WIDTH, 47 + i * 32, lab, 11, "m-f", "end") + '</g>')
 
     base, top = H - 10, H - 58
     span = base - top
@@ -293,7 +298,8 @@ def main():
     changed = [n for n, svg in files.items()
                if write(os.path.join(out_dir, n), svg)]
     print(f"{s['total']} contributions, {s['active']} active days, "
-          f"best week {s['best_week']}")
+          f"best week {s['best_week']}, {s['stars']} stars, "
+          f"{s['commits']} commits")
     print("languages by bytes: "
           + ", ".join(f"{n} {v}" for n, v in s["by_size"]))
     print("updated: " + (", ".join(sorted(changed)) if changed else "nothing"))
