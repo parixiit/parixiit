@@ -328,7 +328,7 @@ def update_readme_projects(projects, path):
     if marker_start in text and marker_end in text:
         prefix, rest = text.split(marker_start, 1)
         _, suffix = rest.split(marker_end, 1)
-        new_text = prefix + "\n" + "\n".join(new_block) + "\n" + suffix
+        new_text = prefix.rstrip() + "\n\n" + "\n".join(new_block) + "\n\n" + suffix.lstrip()
     else:
         needle = '<img src="./images/hd-projects.svg" width="620">'
         insert_after = text.find(needle)
